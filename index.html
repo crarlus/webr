@@ -70,6 +70,10 @@ ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG
     async function init() {
       statusEl.textContent = "Starting webR...";
       await webR.init();
+      
+      statusEl.textContent = "Installing stringr package...";
+      await webR.installPackages(['stringr']);
+      
       statusEl.textContent = "webR ready.";
       runBtn.disabled = false;
 
@@ -107,7 +111,7 @@ rev_comp <- function(seq) {
       const seq = document.getElementById("seq").value;
 
       // Move input text into R
-      await webR.set("rawseq", seq);
+      await webR.objs.globalEnv.bind("rawseq", seq);
 
       // Perform analysis in R
       const result = await webR.evalR(`
@@ -128,8 +132,8 @@ paste(
 )
 `, { captureStreams: true });
 
-      const text = (await result.text()).trim();
-      outputEl.textContent = text;
+      const text = await result.toJs();
+      outputEl.textContent = text.values[0];
       statusEl.textContent = "Done.";
       runBtn.disabled = false;
     });
