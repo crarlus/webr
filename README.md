@@ -73,3 +73,4 @@ R output is captured in the result variable defined above and then handed back t
 ## Questions:
 - What does captureStreams mean? Surely it's all a stream if it's async?!
 - What does `result.toJS()` do?
+- What does `runBtn.disabled = false` mean?
