@@ -67,6 +67,7 @@ const result = await webR.evalR(`
 
 ## How do data exist WASM?
 R output is captured in the result variable defined above and then handed back to the DOM via :
+
 ```javascript
 const text = await result.toJs();
 outputEl.textContent = text.values[0];
